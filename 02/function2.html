@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>function</title>
+</head>
+<body>
+    <script>
+        // 선언할 수 있는 데이터 타입이 없기 떄문에 function도 데이터 타입을 선언하지 않음
+        // 따라서 네이밍이 중요함
+        function func(f){
+            f();
+        }
+        var f1 = function(){
+            alert(1+1);
+        }
+        // anonymous fuction 무명 함수
+        func(function(){
+            alert(1+1);
+        });
+    </script>
+</body>
+</html>
