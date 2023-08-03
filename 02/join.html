@@ -15,7 +15,7 @@
         <input type="radio" id="m" name="trans">
         <label for="f">여자</label>
         <input type="radio" id="f" name="trans"><br>
-        <input type="tel" id="tel" maxlength='11' placeholder="전화번호"><br>
+        <input type="text" id="tel" maxlength='11' placeholder="전화번호"><br>
         <button>등록</button>
     </form>
 </body>
@@ -24,6 +24,7 @@
         const name = document.querySelector('#name');
         const id = document.querySelector('#id');
         const pwd = document.querySelector('#pwd');
+        const trans = document.querySelector('input[name=trans]:checked'); // 체크된 것만 가져옴
         const tel = document.querySelector('#tel');
         if(name.value.trim().length<2){
             alert('이름은 두글자 이상입니다.');
@@ -43,7 +44,7 @@
             pwd.focus();
             return false;
         }
-        if (document.querySelector('trans')==null) {
+        if (trans==null) {
             alert('성별을 선택해주세요.');
             return false;
         }
