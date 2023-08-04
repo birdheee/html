@@ -1,70 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        td{
-            width : 50px;
-            height : 50px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    td{
+      width:50px;
+      height:50px;
+      text-align:center;
+    }
+  </style>
 </head>
 <body>
-    <input type="text" id="betNum" placeholder="번호">
-    <input type="text" id="betPrice" placeholder="금액">
-    <button onclick="startRoulette()">가자 일확천금!</button>
-    <table border="1">
-        <thead></thead>
-    </table>
-    <div id="result"></div>
-    <script>
-        let redIdx = -1;
-        let blueIdx = -1;
-        let greenIdx = -1;
-        function startRoulette(){
-            const tds = document.querySelectorAll('td');
-            const interval = setInterval(function(){
-                for(let i=0; i<tds.length; i++){
-                    tds[i].style='background-color:white';
-                }
-                redIdx = Math.floor(Math.random() * tds.length);
-                tds[redIdx].style='background-color:red';
+  <input type="text" id="num" placeholder="룰렛번호"><input type="text" id="bet" placeholder="베팅금액">
+  <div id="rDiv"></div>
+  <button onclick="startRoulette()">가자 일확천금!</button>
+  <table border="1">
 
-                blueIdx = Math.floor(Math.random() * tds.length);
-                tds[blueIdx].style='background-color:blue';
-
-                greenIdx = Math.floor(Math.random() * tds.length);
-                tds[greenIdx].style='background-color:green';
-            }, 200);
-            setTimeout(function(){
-                const betNum = parseInt(document.querySelector('#betNum').value);
-                let betPrice = parseInt(document.querySelector('#betPrice').value);
-                if(betNum === redIdx+1){
-                    betPrice *= -10;
-                }
-                if(betNum === blueIdx+1){
-                    betPrice *= 10;
-                }
-                if(betNum === greenIdx+1){
-                    betPrice *= 5;
-                }
-                document.querySelector('#result').innerHTML = `결과 : ${betPrice}원`;
-                clearInterval(interval);
-            }, 3000);
+  </table>
+  <script>
+    let redIdx = -1;
+    let blueIdx = -1;
+    let greenIdx = -1;
+    function startRoulette(){
+      const tds = document.querySelectorAll('td');
+      const interval = setInterval(function(){
+        for(let i=0;i<tds.length;i++){
+          tds[i].style='background-color:white';
         }
-
-        let html = '';
-        for(let i=1; i<=5; i++){
-            html += '<tr>';
-            for(let j=1; j<=10; j++){
-                html += '<td>' + i*j + '</td>';
-            }
-            html += '</tr>'
+        redIdx = Math.floor(Math.random() * tds.length);
+        tds[redIdx].style='background-color:red';
+        
+        blueIdx = Math.floor(Math.random() * tds.length);
+        tds[blueIdx].style='background-color:blue';
+        
+        greenIdx = Math.floor(Math.random() * tds.length);
+        tds[greenIdx].style='background-color:green';
+      },200);
+      setTimeout(function(){
+        const num = parseInt(document.querySelector('#num').value) - 1;
+        let bet = parseInt(document.querySelector('#bet').value);
+        let msg = '졌습니다.';
+        if(num===redIdx){
+          bet *= -10;
+        }else if(num===blueIdx){
+          msg = '이겼습니다.';
+          bet *= 10;
+        }else if(num===greenIdx){
+          msg = '이겼습니다.';
+          bet *= 5;
+        }else{
+          bet = 0;
         }
-        document.querySelector('thead').innerHTML = html;
-    </script>
+        document.querySelector('#rDiv').innerHTML = `${msg} 금액 : ${bet}원`;
+        clearInterval(interval);
+      },2999);
+    }
+    let html = '';
+    let cnt = 1;
+    for(let i=1;i<=5;i++){
+      html += '<tr>';
+      for(let j=1;j<=10;j++){
+        html += '<td>' + (cnt++) + '</td>';
+      }
+      html += '</tr>';
+    }
+    document.querySelector('table').innerHTML = html;
+  </script>
 </body>
 </html>

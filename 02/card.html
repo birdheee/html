@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Game</title>
+    <style>
+        img{
+            padding:1;
+            margin:1;
+            width:90px;
+            height:120px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="startCard()">시작</button>
+    <div id="table"></div>
+    <div id="score"></div>
+    <script>
+        const arr = [];
+        let score = 0;
+        function reverse(obj){
+            let openImgs = document.querySelectorAll('img[data-open="1"]');
+            if(openImgs.length===2){
+                return;
+            }
+            const num = obj.getAttribute('data-num');
+            const imgPath = `/img/cards/${num}.png`;
+            obj.src = imgPath;
+            obj.setAttribute('data-open','1');
+            if(openImgs.length==1){
+                openImgs = document.querySelectorAll('img[data-open="1"]');
+                const card1 = parseInt(openImgs[0].getAttribute('data-num'))%13;
+                const card2 = parseInt(openImgs[1].getAttribute('data-num'))%13;
+
+                if(card1 === card2){
+                    openImgs[0].setAttribute('data-open', '2');
+                    openImgs[1].setAttribute('data-open', '2');
+                    score++;
+                    return;
+                }
+                setTimeout(function(){
+                    for(let i=0;i<openImgs.length;i++){
+                        openImgs[i].src =  `/img/cards/back.png`;
+                        openImgs[i].setAttribute('data-open','0');
+                }
+                },1000);
+                score++;
+            }
+            document.querySelector('#score').innerHTML = `<h1>도전 횟수 : ${score}번</h1>`;
+        }
+        function startCard(){
+            arr.length = 0;
+            while(arr.length<52){
+                const rNum = Math.floor(Math.random()*52);
+                if(!arr.includes(rNum)){
+                arr.push(rNum);
+                }
+            }
+            let html = '<table>';
+            let cnt = 0;
+            for(let i=1;i<5;i++){
+                html += '<tr>';
+                for(let j=1;j<14;j++){
+                    html += `<td><img src="/img/cards/back.png" data-num="${arr[cnt++]}" `;
+                    html += ` onclick="reverse(this)" data-open="0"></td>`
+                }
+                html += '</td>'
+            }
+            html += '</table>'
+            document.querySelector('#table').innerHTML = html;
+        }
+    </script>
+</body>
+</html>

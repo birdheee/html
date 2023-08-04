@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>baseball</title>
+</head>
+<body>
+    <script>
+        const arr = [];
+        // 다 읽었을 때 실행
+        window.onload = function(){
+            const gDiv = document.querySelector('#gDiv');
+            const sDiv = document.querySelector('#sDiv');
+            gDiv.style.display = 'none';
+
+            document.querySelector('#sBtn').onclick = function(){
+                while(arr.length<3){
+                    const rNum = Math.floor(Math.random()*10);
+                    if(!arr.includes(rNum)){
+                        arr.push(rNum);
+                    }
+                }
+                console.log(arr);
+                sDiv.style.display = 'none';
+                gDiv.style.display = 'block';
+            }
+
+            document.querySelector('#gBtn').onclick = function(){
+                const nums = [];
+                const numObj1 = parseInt(document.querySelector('#num1').value);
+                const numObj2 = parseInt(document.querySelector('#num2').value);
+                const numObj3 = parseInt(document.querySelector('#num3').value);
+                nums.push(numObj1);
+                nums.push(numObj2);
+                nums.push(numObj3);
+
+                let strike = 0;
+                let ball = 0;
+                for(let i=0; i<3; i++){
+                    if(nums[i]==arr[i]){
+                        strike++;
+                        continue;
+                    }
+                    if(arr.includes(nums[i])){
+                        ball++;
+                    }
+                }
+                document.querySelector('#result').innerHTML = `${strike}S${ball}B`;
+            }
+
+            
+        }
+    </script>
+    <div id="sDiv">
+        <button id="sBtn">시작</button>
+    </div>
+    <div id="gDiv">
+        <input type="number" min="0" max="9" id="num1">
+        <input type="number" min="0" max="9" id="num2">
+        <input type="number" min="0" max="9" id="num3">
+        <button id="gBtn">맞추기</button>
+    </div>
+    <div id="result"></div>
+</body>
+</html>
