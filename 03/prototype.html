@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype</title>
+</head>
+<body>
+    <script>
+        let a = '  a  ';
+        // 없는 function을 만드는 방법
+        String.prototype.size = function(){
+            return this.length;
+        }
+        console.log(a);
+        console.log(a.trim());
+        // console.log(a.size); size는 원래 없음
+        // console.log(a.length);
+        console.log(a.size());
+    </script>
+</body>
+</html>

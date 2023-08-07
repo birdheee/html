@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event</title>
+</head>
+<body>
+    <script>
+        // load 이벤트는 직접 선언하는 것이 아니라 addEventListener를 활용해야 함
+        window.addEventListener = ('load', function(){
+            document.querySelector('#r1').innerHTML = 'Hello';
+        });
+    </script>
+    <div id="r1">안녕</div>
+</body>
+</html>
