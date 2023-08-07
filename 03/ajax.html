@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="getInfo()">정보 가져오기</button>
+    <table border="1">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일</th>
+        </tr>
+        <tbody id="tBody"></tbody>
+    </table>
+    <script>
+        function getInfo(){
+            const xhr = new XMLHttpRequest(); // 전화기 (state : 0)
+            xhr.open('GET', 'http://localhost:8080/json'); // get 방식으로 8080에 전화하려 함 (state : 1)
+            // 전화 받으면 할 일을 정해놓기
+            xhr.onreadystatechange = function(){  // (state : 전화 받으면 2, 생각하면 3, 출력한 후 4)
+                // 상태가 바뀔 때 실행됨
+                if(xhr.readyState===4){
+                    if(xhr.status===200){ // 정상
+                        // 서버가 불러준 내용을 불러옴
+                        const obj = JSON.parse(xhr.responseText); // JSON으로 파싱
+                        let html = '';
+                        for(let i=0; i<obj.length; i++){
+                            const board = obj[i];
+                            html += '<tr>';
+                            html += `<td>${board.biNum}</td>`;
+                            html += `<td>${board.biTitle}</td>`;
+                            html += `<td>${board.credat}</td>`;
+                            html += '</tr>';
+                        }
+                        document.querySelector('#tBody').innerHTML = html;
+                    }
+                }
+            }
+            xhr.send(); // 전화 걸기
+        }
+    </script>
+</body>
+</html>

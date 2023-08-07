@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count</title>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        function count(cnt){
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:8080/count?cnt=' + cnt);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                        document.querySelector('#result').innerHTML += xhr.responseText + '<br>';
+                    }
+                }
+            }
+            xhr.send();
+        }
+        // 비동기 방식으로 동작
+        count(3);
+        count(2);
+        count(1);
+    </script>
+</body>
+</html>
